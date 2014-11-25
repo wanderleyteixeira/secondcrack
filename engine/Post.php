@@ -12,6 +12,8 @@ class Post
     public static $blog_title = 'Untitled Blog';
     public static $blog_url   = 'http://no-idea.com/';
     public static $blog_description = 'About my blog.';
+    public static $authors = array('unk' => 'Unknown Author');
+    public static $default_author = 'unk';
     
     public $source_filename = '';
     public $title = '';
@@ -23,6 +25,7 @@ class Post
     public $headers = array();
     public $tags = array();
     public $body = '';
+    public $author = '';
 
     public $year;
     public $month;
@@ -98,11 +101,14 @@ class Post
                     $this->type = str_replace('|', ' ', $fields[1]);
                 } else if ($fname == 'published') {
                     $this->timestamp = strtotime($fields[1]);
+		} else if ($fname == 'author') {
+		    $this->author = strtolower($fields[1]);
                 } else {
                     $this->headers[$fname] = $fields[1];
                 }
                 
                 if (isset($this->headers['link'])) $this->type = 'link';
+		if ($this->author==""||!isset(Post::$authors[$this->author])) $this->author = Post::$default_author;
             }
             array_shift($segments);
         }
@@ -200,6 +206,8 @@ class Post
                 'post-absolute-permalink-or-link' => rtrim(self::$blog_url, '/') . (isset($this->headers['link']) && $this->headers['link'] ? $this->headers['link'] : $base_uri . '/' . $this->slug),
 
                 'post-is-first-on-date' => $this->is_first_post_on_this_date ? 'yes' : '',
+		'author' => $this->author,
+		'author_name' => Post::$authors[$this->author]
             )
         );
     }
