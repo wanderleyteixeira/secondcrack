@@ -418,6 +418,12 @@ class Updater
     const RESEQUENCED_POSTS = -1;
     public static function update()
     {
+		$template_changed = false;
+		foreach (self::changed_files_in_directory(self::$source_path . '/templates') as $filename => $info) {
+		$template_changed = true;
+		break;
+	}
+
         if (! file_exists(self::$cache_path)) {
             // Starting fresh, probably multiple resequences to do.
             // Let them all happen at once.
