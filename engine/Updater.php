@@ -421,24 +421,18 @@ class Updater
         if (! file_exists(self::$cache_path)) {
             // Starting fresh, probably multiple resequences to do.
             // Let them all happen at once.
-            $status = self::_update(false, $template_changed);
+            $status = self::_update(false);
         }
         
         do {
-            $status = self::_update(true, $template_changed);
+            $status = self::_update();
         } while ($status == self::RESEQUENCED_POSTS);
 
         return $status;
     }
     
-    private static function _update($restart_if_resequenced = true, $template_changed = false)
+    private static function _update($restart_if_resequenced = true)
     {
-	if($template_changed) {
-		error_log("Template changed: removing cache...");
-		$mask = self::$cache_path . "/*";
-		array_map( "unlink", glob( $mask ));
-		$restart_if_resequenced = false;
-	}
         if (! file_exists(self::$dest_path)) mkdir_as_parent_owner(self::$dest_path, 0755, true);
         if (! file_exists(self::$dest_path . '/.htaccess')) copy(dirname(__FILE__) . '/default.htaccess', self::$dest_path . '/.htaccess');
         if (! file_exists(self::$dest_path . '/tag')) mkdir_as_parent_owner(self::$dest_path . '/tag', 0755, true);
