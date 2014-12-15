@@ -12,7 +12,7 @@ fi
 SOURCE_PATH="$1"
 SECONDCRACK_PATH="$2"
 FORCE_CHECK_EVERY_SECONDS=30
-UPDATE_LOG=~/var/log/secondcrack-update.log
+UPDATE_LOG=/tmp/secondcrack-update.log
 #Set update_log_max < 1 for Infinite logfile length
 UPDATE_LOG_MAX=99
 
