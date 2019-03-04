@@ -7,6 +7,10 @@ I added a `robots.txt.template` template from Jonas Jacek's [robots](https://git
 
 Second Crack is a basic static-file blog engine using Markdown-formatted text files as input.
 
+
+## Pushover
+Integrated [Pushover](https://pushover.net)'s API to the `update.sh` to send a notification once page it updated.
+
 # Warning
 
 Second Crack should be considered an early alpha. Even though I've run Marco.org with it for a long time, **it's still rough and unfriendly.**
