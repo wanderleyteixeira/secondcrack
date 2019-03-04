@@ -1,3 +1,7 @@
+# Update
+
+I have containerized this blog using my other project named [Second Crack Docker](https://github.com/wbtf/secondcrack-docker)
+
 Second Crack is a basic static-file blog engine using Markdown-formatted text files as input.
 
 # Warning
