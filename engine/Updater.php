@@ -459,7 +459,7 @@ class Updater
 		$restart_if_resequenced = false;
 	}
         if (! file_exists(self::$dest_path)) mkdir_as_parent_owner(self::$dest_path, 0755, true);
-        if (! file_exists(self::$dest_path . '/.htaccess')) copy(dirname(__FILE__) . '/default.htaccess', self::$dest_path . '/.htaccess');
+        //if (! file_exists(self::$dest_path . '/.htaccess')) copy(dirname(__FILE__) . '/default.htaccess', self::$dest_path . '/.htaccess');
         if (! file_exists(self::$dest_path . '/tag')) mkdir_as_parent_owner(self::$dest_path . '/tag', 0755, true);
 	if (! file_exists(self::$dest_path . '/type')) mkdir_as_parent_owner(self::$dest_path . '/type', 0755, true);
 	if (! file_exists(self::$dest_path . '/list')) mkdir_as_parent_owner(self::$dest_path . '/list', 0755, true);
