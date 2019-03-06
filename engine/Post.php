@@ -1,7 +1,8 @@
 <?php
 
 $fdir = dirname(__FILE__);
-require_once($fdir . '/PHPMarkdownExtra/markdown.php');
+use \Michelf\MarkdownExtra;
+require_once($fdir . '/Michelf/MarkdownExtra.inc.php');
 require_once($fdir . '/PHPSmartyPants/smartypants.php');
 require_once($fdir . '/Updater.php');
 require_once($fdir . '/Template.php');
@@ -183,7 +184,7 @@ class Post
     {
         $uid = $this->timestamp . $this->slug;
         $footnote_id_prefix = 'p' . substr(preg_replace('/[^a-zA-Z0-9]/', '', base64_encode(md5($uid, true))), 0, 8);
-        return SmartyPants(Markdown($this->body, $footnote_id_prefix));
+        return SmartyPants(MarkdownExtra::defaultTransform($this->body, $footnote_id_prefix));
     }
     
     public function array_for_template()
