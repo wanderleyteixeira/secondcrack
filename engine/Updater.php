@@ -650,7 +650,7 @@ class Updater
             );
 
             Post::write_index(
-                self::$dest_path . "/tag/$tag.html",
+                self::$dest_path . "/tag/$tag",
                 Post::$blog_title, 
                 'tag', 
                 Post::from_files(self::most_recent_post_filenames(self::$frontpage_post_limit, $tag, self::$archive_tag_filter)),
