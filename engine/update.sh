@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 
 if [ "$1" == "" -o "$2" == "" ] ; then
     echo ""
@@ -12,14 +12,13 @@ fi
 SOURCE_PATH="$1"
 SECONDCRACK_PATH="$2"
 FORCE_CHECK_EVERY_SECONDS=30
-#UPDATE_LOG=/tmp/secondcrack-update.log
 UPDATE_LOG="${SECONDCRACK_PATH}/secondcrack-update.log"
 
 #Set update_log_max < 1 for Infinite logfile length
 UPDATE_LOG_MAX=99
 
 SCRIPT_LOCK_FILE="${SECONDCRACK_PATH}/engine/secondcrack-updater.pid"
-BASH_LOCK_DIR="/tmp/secondcrack-updater.sh.lock"
+BASH_LOCK_DIR="${SECONDCRACK_PATH}/secondcrack-updater.sh.lock"
 
 if mkdir "$BASH_LOCK_DIR" ; then
     trap "rmdir '$BASH_LOCK_DIR' 2>/dev/null ; exit" INT TERM EXIT
