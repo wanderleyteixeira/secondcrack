@@ -23,7 +23,7 @@ BASH_LOCK_DIR="${SECONDCRACK_PATH}/secondcrack-updater.sh.lock"
 if mkdir "$BASH_LOCK_DIR" ; then
     trap "rmdir '$BASH_LOCK_DIR' 2>/dev/null ; exit" INT TERM EXIT
 
-    echo "`date` -- updating secondcrack" >> $UPDATE_LOG
+    #echo "`date` -- updating secondcrack" >> $UPDATE_LOG
     if [ $UPDATE_LOG_MAX -gt 0 ]; then
         tail -n $UPDATE_LOG_MAX $UPDATE_LOG > ${UPDATE_LOG}.tmp
 	mv ${UPDATE_LOG}.tmp $UPDATE_LOG
@@ -35,20 +35,20 @@ if mkdir "$BASH_LOCK_DIR" ; then
         while true ; do
             inotifywait -q -q -r -t $FORCE_CHECK_EVERY_SECONDS -e close_write -e create -e delete -e moved_from "$SOURCE_PATH"
             if [ $? -eq 0 ] ; then
-                echo "`date` -- updating secondcrack, a source file changed" >> $UPDATE_LOG
-				/home/secondcrack/pushover.sh "Updating secondcrack, a source file changed" >> $UPDATE_LOG
+                #echo "`date` -- updating secondcrack, a source file changed" >> $UPDATE_LOG
+		/home/secondcrack/pushover.sh "Updating secondcrack, a source file changed"
             else
-                echo "`date` -- updating secondcrack, $FORCE_CHECK_EVERY_SECONDS seconds elapsed" >> $UPDATE_LOG
-				#/home/secondcrack/pushover.sh "Updating secondcrack, $FORCE_CHECK_EVERY_SECONDS seconds elapsed" >> $UPDATE_LOG
+                #echo "`date` -- updating secondcrack, $FORCE_CHECK_EVERY_SECONDS seconds elapsed" >> $UPDATE_LOG
+		/home/secondcrack/pushover.sh "Updating secondcrack, $FORCE_CHECK_EVERY_SECONDS seconds elapsed"
             fi
 
             php -f "${SECONDCRACK_PATH}/engine/update.php" "$SCRIPT_LOCK_FILE"
             while [ $? -eq 2 ] ; do
-                echo "-- updating secondcrack, last run performed writes" >> $UPDATE_LOG
-                /home/secondcrack/pushover.sh "Updating secondcrack, last run performed writes" >> $UPDATE_LOG
+                #echo "-- updating secondcrack, last run performed writes" >> $UPDATE_LOG
                 php -f "${SECONDCRACK_PATH}/engine/update.php" "$SCRIPT_LOCK_FILE"
-            done
-        done
+                /home/secondcrack/pushover.sh "Updating secondcrack, last run performed writes"
+	    done
+	done
     fi
 
     rmdir "$BASH_LOCK_DIR" 2>/dev/null
