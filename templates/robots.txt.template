@@ -131,6 +131,7 @@ User-agent: yoozBot
 # youdao.com chinese search engine
 User-agent: YoudaoBot
 # crawling rule(s)
+Disallow: *.pdf  # Block pdf files. Non-standard but works for major search engines.
 Disallow:
 # disallow all other bots
 User-agent: *
